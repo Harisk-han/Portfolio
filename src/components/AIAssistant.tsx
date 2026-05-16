@@ -2,51 +2,21 @@ import { useEffect } from "react";
 
 const AIAssistant = () => {
   useEffect(() => {
-    // Load Botpress script
-    const script = document.createElement("script");
-    script.src = "https://cdn.botpress.cloud/desk/webchat/v4.0/inject.js";
-    script.async = true;
-    script.onload = () => {
-      const bp = (window as any).botpress;
-      if (!bp) return;
+    // Load Botpress v3.6 inject script
+    const injectScript = document.createElement("script");
+    injectScript.src = "https://cdn.botpress.cloud/webchat/v3.6/inject.js";
+    injectScript.async = true;
+    document.body.appendChild(injectScript);
 
-      bp.on("webchat:ready", () => {
-        bp.open();
-      });
-
-      bp.init({
-        botId: "e283dfb1-96e9-4653-bf75-90f83fb172df",
-        configuration: {
-          version: "v2",
-          botName: "Your Brand Assistant",
-          botDescription: "",
-          website: {},
-          email: {},
-          phone: {},
-          termsOfService: {},
-          privacyPolicy: {},
-          color: "#3276EA",
-          variant: "solid",
-          headerVariant: "glass",
-          themeMode: "light",
-          fontFamily: "inter",
-          radius: 4,
-          feedbackEnabled: false,
-          footer: "[⚡ by Botpress](https://botpress.com/?from=webchat)",
-          soundEnabled: false,
-          proactiveMessageEnabled: false,
-          proactiveBubbleMessage: "Hi! 👋 Need help?",
-          proactiveBubbleTriggerType: "afterDelay",
-          proactiveBubbleDelayTime: 10,
-        },
-        clientId: "5b3398b0-aae2-46d3-ae0c-fe4d4b330ba4",
-        selector: "#webchat",
-      });
-    };
-    document.head.appendChild(script);
+    // Load bot-specific config script
+    const configScript = document.createElement("script");
+    configScript.src = "https://files.bpcontent.cloud/2026/05/15/20/20260515205432-DLU4TJBR.js";
+    configScript.defer = true;
+    document.body.appendChild(configScript);
 
     return () => {
-      script.remove();
+      injectScript.remove();
+      configScript.remove();
     };
   }, []);
 
@@ -68,27 +38,7 @@ const AIAssistant = () => {
             </p>
           </div>
         </div>
-
-        <div className="max-w-2xl mx-auto">
-          <div
-            id="webchat"
-            style={{ width: "100%", height: "500px" }}
-          />
-        </div>
       </div>
-
-      <style>{`
-        #webchat .bpWebchat {
-          position: unset;
-          width: 100%;
-          height: 100%;
-          max-height: 100%;
-          max-width: 100%;
-        }
-        #webchat .bpFab {
-          display: none;
-        }
-      `}</style>
     </section>
   );
 };
