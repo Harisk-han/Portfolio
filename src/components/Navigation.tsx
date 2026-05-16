@@ -12,7 +12,7 @@ const Navigation = () => {
       setIsScrolled(window.scrollY > 50);
       
       // Detect active section
-      const sections = ["hero", "projects", "about", "ai-assistant", "contact"];
+      const sections = ["hero", "projects", "about", "contact"];
       const scrollPosition = window.scrollY + 100;
       
       for (const section of sections) {
@@ -36,6 +36,26 @@ const Navigation = () => {
   const scrollToSection = (sectionId: string) => {
     document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
     setIsMobileMenuOpen(false);
+  };
+
+  const handleNavClick = (itemId: string) => {
+    if (itemId === 'ai-assistant') {
+      // Try multiple Botpress API namespaces (v3.6/Cloud/v4)
+      const bp = (window as any).botpress;
+      const bpWebChat = (window as any).botpressWebChat;
+      
+      if (bp && typeof bp.open === 'function') {
+        bp.open();
+      } else if (bpWebChat && typeof bpWebChat.open === 'function') {
+        bpWebChat.open();
+      } else {
+        // Fallback: scroll to the section if it exists
+        scrollToSection(itemId);
+      }
+      setIsMobileMenuOpen(false);
+    } else {
+      scrollToSection(itemId);
+    }
   };
 
   const navItems = [
@@ -70,16 +90,16 @@ const Navigation = () => {
               <Button
                 key={item.id}
                 variant="ghost"
-                onClick={() => scrollToSection(item.id)}
-                className={`relative text-foreground transition-all duration-200 ${
+                onClick={() => handleNavClick(item.id)}
+                className={`relative px-4 py-2 transition-all duration-300 rounded-full ${
                   activeSection === item.id 
-                    ? 'text-accent font-semibold' 
-                    : 'hover:text-accent'
-                }`}
+                    ? 'text-accent bg-accent/10 font-bold' 
+                    : 'text-foreground/80 hover:text-accent hover:bg-accent/5'
+                } ${item.id === 'ai-assistant' ? 'border border-accent/20' : ''}`}
               >
                 {item.label}
                 {activeSection === item.id && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-accent animate-pulse" />
+                  <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-accent shadow-[0_0_8px_rgba(var(--accent),0.6)]" />
                 )}
               </Button>
             ))}
@@ -109,14 +129,17 @@ const Navigation = () => {
             {navItems.map((item) => (
               <button
                 key={item.id}
-                onClick={() => scrollToSection(item.id)}
-                className={`w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
+                onClick={() => handleNavClick(item.id)}
+                className={`w-full text-left px-6 py-4 rounded-xl transition-all duration-300 flex items-center justify-between ${
                   activeSection === item.id
-                    ? 'bg-primary text-primary-foreground font-semibold'
-                    : 'hover:bg-muted text-foreground'
+                    ? 'bg-accent/10 text-accent font-bold'
+                    : 'text-foreground/80 hover:bg-accent/5 hover:text-accent'
                 }`}
               >
                 {item.label}
+                {activeSection === item.id && (
+                  <div className="w-2 h-2 rounded-full bg-accent shadow-[0_0_8px_rgba(var(--accent),0.6)]" />
+                )}
               </button>
             ))}
           </div>

@@ -9,6 +9,7 @@ const Index = () => {
   return (
     <main className="min-h-screen">
       <Navigation />
+      <AIAssistant />
       <section id="hero">
         <Hero />
       </section>
@@ -17,9 +18,6 @@ const Index = () => {
       </section>
       <section id="about">
         <About />
-      </section>
-      <section id="ai-assistant">
-        <AIAssistant />
       </section>
       <section id="contact">
         <Contact />
