@@ -4,23 +4,23 @@ import { Brain, Code, Database, Zap } from "lucide-react";
 const skills = [
   {
     icon: Brain,
-    title: "Machine Learning",
-    description: "Deep Learning, Neural Networks, PyTorch, TensorFlow"
+    title: "AI Automation",
+    description: "n8n, Botpress, Zapier, Vapi, API integrations"
   },
   {
     icon: Code,
-    title: "Programming",
-    description: "Python, JavaScript, C++, SQL, Git"
+    title: "Agentic Systems",
+    description: "LangChain, LangGraph, RAG, prompt engineering"
   },
   {
     icon: Database,
-    title: "Data Engineering",
-    description: "ETL Pipelines, Big Data, Cloud Computing, MLOps"
+    title: "Data & APIs",
+    description: "FastAPI, Qdrant, Pinecone, Docker, GitHub"
   },
   {
     icon: Zap,
-    title: "AI Specialization",
-    description: "NLP, Computer Vision, Generative AI, LLMs"
+    title: "Applied ML",
+    description: "NLP, computer vision, YOLO, segmentation"
   }
 ];
 
@@ -37,10 +37,10 @@ const About = () => {
                 </span>
               </div>
               <h2 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
-                Passionate About AI
+                Building Practical AI Systems
               </h2>
               <p className="text-xl text-muted-foreground max-w-3xl mx-auto leading-relaxed">
-                Creating intelligent systems that make a meaningful impact on the world
+                Turning automation, agents, and machine learning into reliable products
               </p>
             </div>
           </div>
@@ -49,24 +49,29 @@ const About = () => {
             <div className="animate-slide-up space-y-8">
               <div className="p-8 bg-card rounded-xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5">
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  I'm an AI Engineer with extensive experience building intelligent systems 
-                  that solve complex real-world problems. My expertise spans machine learning, 
-                  deep learning, and natural language processing.
+                  I'm Haris Khan, an AI Engineer focused on building useful systems across 
+                  automation, conversational AI, computer vision, and NLP. I enjoy taking 
+                  messy business problems and turning them into workflows, agents, and models 
+                  that are clear, reliable, and easy to use.
                 </p>
               </div>
               
               <div className="p-8 bg-card rounded-xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5">
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  I specialize in taking AI research from concept to production, with a focus 
-                  on scalable architectures and efficient model optimization. My work has 
-                  helped companies improve their processes and make data-driven decisions.
+                  My recent work includes RAG-based chatbots, multi-agent hiring workflows, 
+                  subscription-aware support bots, and AI automation pipelines built with 
+                  tools like n8n, Botpress, LangGraph, Qdrant, and OpenAI APIs. I care about 
+                  the full path from prompt design and integrations to testing, logging, and 
+                  continuous optimization.
                 </p>
               </div>
               
               <div className="p-8 bg-card rounded-xl border border-border/50 hover:border-primary/30 transition-all duration-500 hover:shadow-lg hover:shadow-primary/5">
                 <p className="text-lg text-muted-foreground leading-relaxed">
-                  When I'm not coding, I enjoy contributing to open-source projects, 
-                  writing technical articles, and exploring the latest developments in AI research.
+                  I also bring hands-on machine learning experience in dataset preparation, 
+                  model training, object detection, segmentation, and deployment. Whether it is 
+                  a chatbot, an autonomous workflow, or a vision model, my goal is to build AI 
+                  that saves time, improves decisions, and holds up in real-world use.
                 </p>
               </div>
             </div>
