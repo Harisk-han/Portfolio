@@ -1,11 +1,21 @@
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
-import { Bot, BriefcaseBusiness, Home, Mail, Menu, UserRound, X } from "lucide-react";
+import { Bot, BriefcaseBusiness, Home, Mail, Menu, UserRound, X, Sparkles, Terminal } from "lucide-react";
+
+type BotpressWindow = Window & {
+  botpress?: {
+    open?: () => void;
+  };
+  botpressWebChat?: {
+    open?: () => void;
+  };
+};
 
 const navItems = [
   { id: "hero", label: "Home", icon: Home },
   { id: "projects", label: "Projects", icon: BriefcaseBusiness },
   { id: "about", label: "About", icon: UserRound },
+  { id: "experience", label: "Experience", icon: Terminal },
   { id: "ai-assistant", label: "AI Assistant", icon: Bot, isAction: true },
   { id: "contact", label: "Contact", icon: Mail },
 ];
@@ -20,7 +30,7 @@ const Navigation = () => {
       setIsScrolled(window.scrollY > 50);
       
       // Detect active section
-      const sections = ["hero", "projects", "about", "contact"];
+      const sections = ["hero", "projects", "about", "experience", "contact"];
       const scrollPosition = window.scrollY + 100;
       
       for (const section of sections) {
@@ -50,8 +60,9 @@ const Navigation = () => {
   const handleNavClick = (itemId: string) => {
     if (itemId === 'ai-assistant') {
       // Try multiple Botpress API namespaces (v3.6/Cloud/v4)
-      const bp = (window as any).botpress;
-      const bpWebChat = (window as any).botpressWebChat;
+      const botpressWindow = window as BotpressWindow;
+      const bp = botpressWindow.botpress;
+      const bpWebChat = botpressWindow.botpressWebChat;
       
       if (bp && typeof bp.open === 'function') {
         bp.open();
@@ -75,75 +86,86 @@ const Navigation = () => {
       <div 
         className={`mx-auto max-w-6xl rounded-2xl border transition-all duration-500 ${
           isScrolled
-            ? 'border-border/70 bg-background/90 shadow-lg shadow-primary/10 backdrop-blur-xl'
-            : 'border-white/15 bg-white/10 shadow-sm shadow-primary/10 backdrop-blur-md'
+            ? 'border-white/10 bg-gray-950/90 shadow-2xl shadow-black/50 backdrop-blur-xl'
+            : 'border-white/10 bg-gray-900/50 shadow-lg shadow-black/20 backdrop-blur-xl'
         }`}
       >
+        {/* Top gradient line */}
+        <div className="absolute inset-x-4 -top-px h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+        
         <div className="flex h-16 items-center justify-between px-4 sm:px-5">
+          {/* Logo */}
           <button
             onClick={() => scrollToSection('hero')}
-            className={`group flex items-center gap-3 rounded-xl pr-3 transition-colors duration-300 ${
-              isScrolled ? 'text-foreground' : 'text-white'
-            }`}
+            className="group flex items-center gap-3 rounded-xl pr-3 transition-all duration-300"
             aria-label="Go to home section"
           >
-            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-sm font-bold text-primary-foreground shadow-md shadow-primary/20 transition-transform duration-300 group-hover:-translate-y-0.5">
-              HK
+            <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-cyan-500 text-sm font-bold text-white shadow-lg shadow-sky-500/25 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-sky-500/40">
+              <span className="relative z-10">HK</span>
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-br from-sky-400 to-cyan-400 opacity-0 group-hover:opacity-100 blur transition-all duration-300" />
             </div>
             <div className="hidden text-left sm:block">
-              <p className="text-sm font-bold leading-tight">Haris Khan</p>
-              <p className={`text-xs leading-tight ${
-                isScrolled ? 'text-muted-foreground' : 'text-white/65'
-              }`}>
-                AI Engineer
+              <p className="text-sm font-bold leading-tight text-white">Haris Khan</p>
+              <p className="text-xs leading-tight text-gray-400">
+                AI & Automation Engineer
               </p>
             </div>
           </button>
           
-          <div className={`hidden items-center gap-1 rounded-full border p-1 md:flex ${
-            isScrolled ? 'border-border/70 bg-muted/50' : 'border-white/15 bg-white/10'
-          }`}>
+          {/* Desktop Navigation */}
+          <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-gray-900/80 p-1 backdrop-blur-sm md:flex">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
                 className={`group relative flex h-10 items-center gap-2 rounded-full px-4 text-sm font-semibold transition-all duration-300 ${
                   activeSection === item.id
-                    ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20'
-                    : isScrolled
-                      ? 'text-foreground/75 hover:bg-background hover:text-primary'
-                      : 'text-white/75 hover:bg-white/15 hover:text-white'
-                } ${item.isAction && activeSection !== item.id ? 'ring-1 ring-accent/30' : ''}`}
+                    ? 'bg-gradient-to-r from-sky-500 to-cyan-500 text-white shadow-lg shadow-sky-500/25'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5'
+                } ${item.isAction && activeSection !== item.id ? 'ring-1 ring-sky-500/30 hover:ring-sky-500/50' : ''}`}
                 aria-current={activeSection === item.id ? "page" : undefined}
               >
-                <item.icon className="h-4 w-4" />
+                <item.icon className={`h-4 w-4 transition-transform duration-300 group-hover:scale-110 ${
+                  item.isAction && activeSection !== item.id ? 'text-sky-400' : ''
+                }`} />
                 <span>{item.label}</span>
+                {item.isAction && (
+                  <Sparkles className="h-3 w-3 text-sky-300 animate-pulse" />
+                )}
               </button>
             ))}
           </div>
 
+          {/* Right side - Status & CTA */}
           <div className="hidden items-center gap-3 lg:flex">
-            <div className={`flex items-center gap-2 rounded-full px-3 py-2 text-xs font-semibold ${
-              isScrolled ? 'bg-green-500/10 text-green-700' : 'bg-white/10 text-white/85'
-            }`}>
-              <span className="h-2 w-2 rounded-full bg-green-400 shadow-[0_0_10px_rgba(74,222,128,0.8)]" />
-              Available
+            {/* Availability Indicator */}
+            <div className="flex items-center gap-2 rounded-full border border-emerald-500/20 bg-emerald-500/10 backdrop-blur-sm px-3 py-2">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]" />
+              </span>
+              <span className="text-xs font-semibold text-emerald-400">
+                Available
+              </span>
             </div>
-            <Button
-              onClick={() => scrollToSection('contact')}
-              className="h-10 rounded-full bg-primary px-5 font-semibold text-primary-foreground hover:bg-primary-light"
-            >
-              Hire Me
-            </Button>
+            
+            {/* Hire Me Button */}
+            <div className="group relative">
+              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-sky-400 to-cyan-400 opacity-0 group-hover:opacity-100 blur transition-all duration-300" />
+              <Button
+                onClick={() => scrollToSection('contact')}
+                className="relative h-10 rounded-full bg-gradient-to-r from-sky-500 to-cyan-500 px-5 font-semibold text-white hover:from-sky-600 hover:to-cyan-600 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 transition-all duration-300 border-0"
+              >
+                <Mail className="mr-2 h-4 w-4" />
+                Hire Me
+              </Button>
+            </div>
           </div>
 
+          {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-            className={`flex h-11 w-11 items-center justify-center rounded-xl border transition-colors md:hidden ${
-              isScrolled
-                ? 'border-border bg-muted/60 text-foreground hover:bg-muted'
-                : 'border-white/15 bg-white/10 text-white hover:bg-white/15'
-            }`}
+            className={`flex h-11 w-11 items-center justify-center rounded-xl border border-white/10 bg-gray-900/50 text-gray-400 backdrop-blur-sm transition-all duration-300 hover:text-white hover:border-white/20 md:hidden`}
             aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMobileMenuOpen}
           >
@@ -155,40 +177,61 @@ const Navigation = () => {
           </button>
         </div>
 
+        {/* Mobile Menu */}
         <div
-          className={`overflow-hidden border-t transition-all duration-300 ease-in-out md:hidden ${
+          className={`overflow-hidden border-t border-white/10 transition-all duration-300 ease-in-out md:hidden ${
             isMobileMenuOpen
-              ? 'max-h-[30rem] border-border/60 opacity-100'
-              : 'max-h-0 border-transparent opacity-0'
+              ? 'max-h-[32rem] opacity-100'
+              : 'max-h-0 opacity-0'
           }`}
         >
-          <div className="space-y-2 px-3 py-4">
+          <div className="space-y-1 px-3 py-4">
             {navItems.map((item) => (
               <button
                 key={item.id}
                 onClick={() => handleNavClick(item.id)}
-                className={`flex w-full items-center justify-between rounded-xl px-4 py-3 text-left transition-all duration-300 ${
+                className={`group flex w-full items-center justify-between rounded-xl px-4 py-3 text-left transition-all duration-300 ${
                   activeSection === item.id
-                    ? 'bg-primary text-primary-foreground shadow-md shadow-primary/20'
-                    : 'text-foreground/80 hover:bg-muted hover:text-primary'
+                    ? 'bg-gradient-to-r from-sky-500/20 to-cyan-500/20 text-white border border-sky-500/30'
+                    : 'text-gray-400 hover:text-white hover:bg-white/5 border border-transparent'
                 }`}
               >
                 <span className="flex items-center gap-3 text-sm font-semibold">
-                  <span className={`flex h-9 w-9 items-center justify-center rounded-lg ${
-                    activeSection === item.id ? 'bg-white/15' : 'bg-primary/10 text-primary'
+                  <span className={`flex h-9 w-9 items-center justify-center rounded-lg transition-all duration-300 ${
+                    activeSection === item.id 
+                      ? 'bg-gradient-to-br from-sky-500 to-cyan-500 text-white shadow-lg shadow-sky-500/25' 
+                      : 'bg-white/5 text-gray-400 group-hover:bg-white/10'
                   }`}>
                     <item.icon className="h-4 w-4" />
                   </span>
                   {item.label}
+                  {item.isAction && (
+                    <Sparkles className="h-3 w-3 text-sky-400 animate-pulse" />
+                  )}
                 </span>
-                <span className={`h-2 w-2 rounded-full transition-opacity ${
-                  activeSection === item.id ? 'bg-current opacity-100' : 'opacity-0'
+                <span className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                  activeSection === item.id 
+                    ? 'bg-sky-400 opacity-100 shadow-[0_0_8px_rgba(56,189,248,0.8)]' 
+                    : 'opacity-0'
                 }`} />
               </button>
             ))}
+            
+            {/* Mobile Availability */}
+            <div className="flex items-center gap-2 rounded-xl border border-emerald-500/20 bg-emerald-500/10 px-4 py-3 mx-3 mt-3">
+              <span className="relative flex h-2 w-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
+              </span>
+              <span className="text-xs font-semibold text-emerald-400">
+                Available for opportunities
+              </span>
+            </div>
+            
+            {/* Mobile CTA */}
             <Button
               onClick={() => scrollToSection('contact')}
-              className="mt-3 h-12 w-full rounded-xl bg-primary font-semibold text-primary-foreground hover:bg-primary-light"
+              className="mt-3 h-12 w-full rounded-xl bg-gradient-to-r from-sky-500 to-cyan-500 font-semibold text-white hover:from-sky-600 hover:to-cyan-600 shadow-lg shadow-sky-500/25 transition-all duration-300 border-0"
             >
               <Mail className="mr-2 h-4 w-4" />
               Hire Me
@@ -196,6 +239,20 @@ const Navigation = () => {
           </div>
         </div>
       </div>
+
+      {/* Custom animations */}
+      <style>{`
+        @keyframes ping {
+          75%, 100% {
+            transform: scale(2);
+            opacity: 0;
+          }
+        }
+        
+        .animate-ping {
+          animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+        }
+      `}</style>
     </nav>
   );
 };
