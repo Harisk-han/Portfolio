@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { ArrowDown, Github, Linkedin, Mail, Sparkles, Terminal, Code2 } from "lucide-react";
+import { ArrowDown, Github, Linkedin, Mail, Sparkles, Terminal, Code2, Download } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 
 const Hero = () => {
@@ -129,6 +129,18 @@ const Hero = () => {
                 Get in Touch
               </Button>
             </div>
+
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="relative bg-transparent border-white/10 text-gray-300 hover:text-white hover:bg-white/5 hover:border-white/20 font-medium px-6 h-12 transition-all duration-300 backdrop-blur-sm"
+            >
+              <a href="/cv/cv.pdf" download="Haris_Khan_CV.pdf">
+                <Download className="w-4 h-4 mr-2" />
+                Download CV
+              </a>
+            </Button>
 
             <Button
               onClick={openGitHub}
