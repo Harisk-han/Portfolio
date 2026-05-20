@@ -124,7 +124,7 @@ const Hero = () => {
                 size="lg"
                 className="h-12 rounded-xl bg-transparent border-white/10 text-gray-300 hover:text-white hover:bg-white/5 hover:border-white/20 font-medium px-4 sm:px-6 transition-all duration-300 backdrop-blur-sm"
               >
-                <a href="/cv/cv.pdf" download="Haris_Khan_CV.pdf">
+                <a href="/cv/Curriculum%20v.pdf" download="Haris_Khan_CV.pdf">
                   <Download className="w-4 h-4 mr-2" />
                   Download CV
                 </a>
