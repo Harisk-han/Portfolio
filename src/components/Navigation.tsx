@@ -96,10 +96,7 @@ const Navigation = () => {
             <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-cyan-500 text-sm font-bold text-white shadow-lg shadow-sky-500/20 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:shadow-sky-500/30">
               <span>HK</span>
             </div>
-            <div className="hidden text-left sm:block">
 
-
-            </div>
           </button>
 
           {/* Desktop Navigation */}

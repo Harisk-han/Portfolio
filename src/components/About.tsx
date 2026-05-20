@@ -91,7 +91,7 @@ const About = () => {
                   </span>
                 </h2>
                 <p className="mt-4 max-w-xl text-base leading-7 text-gray-400 sm:text-lg">
-                  I build practical AI and automation products that connect LLMs, data, APIs, 
+                  I build practical AI and automation products that connect LLMs, data, APIs,
                   and web experiences into systems people can actually use.
                 </p>
               </div>
@@ -187,7 +187,7 @@ const About = () => {
                 >
                   {/* Gradient border on hover */}
                   <div className={`absolute inset-0 rounded-xl bg-gradient-to-r ${skill.accent} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-                  
+
                   <div className="relative flex flex-col rounded-xl bg-gray-950 p-6 h-full">
                     {/* Top accent line */}
                     <div className={`absolute inset-x-0 top-0 h-1 rounded-t-xl bg-gradient-to-r ${skill.accent}`} />
@@ -195,11 +195,11 @@ const About = () => {
                     <div className={`mb-4 flex h-11 w-11 items-center justify-center rounded-xl ${skill.color} shadow-lg transition-all duration-300 group-hover:scale-110 group-hover:rotate-3`}>
                       <skill.icon className="h-5 w-5 text-white" aria-hidden="true" />
                     </div>
-                    
+
                     <h3 className="mb-2 text-base font-bold text-white transition-colors duration-300">
                       {skill.title}
                     </h3>
-                    
+
                     <p className="text-sm text-gray-400 leading-relaxed flex-grow">
                       {skill.description}
                     </p>

@@ -53,8 +53,9 @@ const Hero = () => {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 w-full max-w-6xl mx-auto px-6 lg:px-8 pt-20 pb-16">
-        <div className="flex flex-col items-start">
+      <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-8 items-center">
+          <div className="flex flex-col items-start">
           {/* Terminal-style status bar */}
           <div className="animate-fade-in mb-8 inline-flex items-center gap-3 rounded-xl border border-white/10 bg-gray-900/80 backdrop-blur-sm p-1 pr-4">
             <div className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-gray-800">
@@ -175,6 +176,29 @@ const Hero = () => {
                 <ArrowDown className="relative w-4 h-4 animate-bounce" />
               </div>
             </button>
+          </div>
+          </div>
+
+          {/* Profile Image Section */}
+          <div className="relative hidden lg:flex justify-center items-center animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <div className="relative w-full max-w-[450px] aspect-[4/5] group">
+              {/* Animated glowing background */}
+              <div className="absolute inset-0 rounded-[2rem] bg-gradient-to-tr from-sky-500 to-violet-500 opacity-20 blur-3xl group-hover:opacity-30 transition-opacity duration-700" />
+              <div className="absolute -inset-4 rounded-[2rem] bg-gradient-to-tr from-cyan-400 to-sky-500 opacity-10 blur-2xl group-hover:opacity-20 transition-opacity duration-700" />
+              
+              {/* Image container with sleek single border */}
+              <div className="relative h-full w-full rounded-[2rem] border border-white/10 bg-gray-900/40 backdrop-blur-sm overflow-hidden shadow-2xl transition-transform duration-700 group-hover:scale-[1.02]">
+                {/* Subtle theme overlay */}
+                <div className="absolute inset-0 bg-gradient-to-tr from-sky-500/10 to-violet-500/10 mix-blend-overlay z-10 pointer-events-none" />
+                
+                {/* Image */}
+                <img 
+                  src="/profile.jpg" 
+                  alt="Haris Khan" 
+                  className="relative h-full w-full object-cover filter contrast-[1.05] brightness-[1.05]"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
