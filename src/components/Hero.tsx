@@ -8,11 +8,11 @@ const Hero = () => {
   };
 
   const openGitHub = () => {
-    window.open('https://github.com', '_blank');
+    window.open('https://github.com/Harisk-han', '_blank');
   };
 
   const openLinkedIn = () => {
-    window.open('https://linkedin.com', '_blank');
+    window.open('https://www.linkedin.com/in/hariskhan164', '_blank');
   };
 
   const scrollToContact = () => {
@@ -106,12 +106,12 @@ const Hero = () => {
             </div>
 
             {/* Buttons Section - Combined in one row */}
-            <div className="flex flex-wrap items-center gap-2 sm:gap-3 mt-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
+            <div className="flex flex-wrap items-center gap-2 sm:gap-2.5 mt-8 animate-fade-in" style={{ animationDelay: '0.4s' }}>
               {/* Get in Touch */}
               <Button
                 onClick={scrollToContact}
                 size="lg"
-                className="h-12 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-500 text-white hover:from-sky-600 hover:to-cyan-600 font-semibold px-4 sm:px-6 transition-all duration-300 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 border-0"
+                className="h-12 rounded-xl bg-gradient-to-r from-sky-500 to-cyan-500 text-white hover:from-sky-600 hover:to-cyan-600 font-semibold px-3.5 sm:px-5 transition-all duration-300 shadow-lg shadow-sky-500/25 hover:shadow-sky-500/40 border-0"
               >
                 <Mail className="w-4 h-4 mr-2" />
                 Get in Touch
@@ -122,7 +122,7 @@ const Hero = () => {
                 asChild
                 variant="outline"
                 size="lg"
-                className="h-12 rounded-xl bg-transparent border-white/10 text-gray-300 hover:text-white hover:bg-white/5 hover:border-white/20 font-medium px-4 sm:px-6 transition-all duration-300 backdrop-blur-sm"
+                className="h-12 rounded-xl bg-transparent border-white/10 text-gray-300 hover:text-white hover:bg-white/5 hover:border-white/20 font-medium px-3.5 sm:px-5 transition-all duration-300 backdrop-blur-sm"
               >
                 <a href="/cv/Curriculum%20v.pdf" download="Haris_Khan_CV.pdf">
                   <Download className="w-4 h-4 mr-2" />
@@ -135,7 +135,7 @@ const Hero = () => {
                 onClick={openGitHub}
                 variant="ghost"
                 size="lg"
-                className="h-12 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300 px-3 sm:px-4"
+                className="h-12 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300 px-2.5 sm:px-3.5"
               >
                 <Github className="w-4 h-4 mr-2" />
                 GitHub
@@ -146,7 +146,7 @@ const Hero = () => {
                 onClick={openLinkedIn}
                 variant="ghost"
                 size="lg"
-                className="h-12 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300 px-3 sm:px-4"
+                className="h-12 rounded-xl text-gray-400 hover:text-white hover:bg-white/5 transition-all duration-300 px-2.5 sm:px-3.5"
               >
                 <Linkedin className="w-4 h-4 mr-2" />
                 LinkedIn
@@ -170,7 +170,7 @@ const Hero = () => {
 
           {/* Right Column - Profile Image (No border) */}
           <div className="relative flex justify-center items-center animate-fade-in mt-12 xl:mt-0" style={{ animationDelay: '0.4s' }}>
-            <div className="relative w-full max-w-[400px] aspect-[3/4] group">
+            <div className="relative w-full max-w-[320px] aspect-[3/4] group">
               {/* Subtle ambient glow behind the photo - removed any border styling */}
               <div className="absolute -inset-6 rounded-[2rem] bg-gradient-to-tr from-sky-500/15 to-violet-500/15 blur-3xl group-hover:from-sky-500/25 group-hover:to-violet-500/25 transition-all duration-700" />
 
@@ -179,7 +179,7 @@ const Hero = () => {
                 <img
                   src="/profile.jpg"
                   alt="Haris Khan - AI & Automation Engineer"
-                  className="relative h-full w-full object-cover scale-[1.15] transition-transform duration-700 group-hover:scale-[1.18] shadow-2xl shadow-black/30"
+                  className="relative h-full w-full object-cover scale-[1.28] transition-transform duration-700 group-hover:scale-[1.33] shadow-2xl shadow-black/30"
                 />
               </div>
             </div>
