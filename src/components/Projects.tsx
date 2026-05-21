@@ -12,7 +12,11 @@ import {
   Zap,
   Star,
   TrendingUp,
+  ChevronDown,
+  ChevronUp,
+  X,
 } from "lucide-react";
+import { useState } from "react";
 
 type Project = {
   title: string;
@@ -27,6 +31,11 @@ type Project = {
   glow: string;
   metric: string;
   highlighted?: boolean;
+  details?: {
+    challenge?: string;
+    approach?: string;
+    impact?: string;
+  };
   links?: {
     label: string;
     href: string;
@@ -50,6 +59,11 @@ const projects: Project[] = [
     glow: "shadow-sky-500/20",
     metric: "Support AI",
     highlighted: true,
+    details: {
+      challenge: "Manual customer support was slow and repetitive, with no way to personalize responses based on subscription tiers.",
+      approach: "Built a Botpress chatbot integrated with OpenAI for natural language understanding, connected to subscription database for personalized responses.",
+      impact: "Reduced response time by 70% and automated 80% of common queries, allowing human agents to focus on complex issues.",
+    },
     links: [
       { label: "Pocket Pinky", href: "https://www.pocketpinky.com/", icon: ArrowUpRight },
       { label: "AI Homebuilder", href: "https://www.aiforhomebuilders.com/", icon: ArrowUpRight },
@@ -69,6 +83,11 @@ const projects: Project[] = [
     color: "bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white",
     glow: "shadow-violet-500/20",
     metric: "Daily",
+    details: {
+      challenge: "Creating daily promotional content was time-consuming and required multiple tools and manual steps.",
+      approach: "Designed an n8n workflow that automates the entire pipeline from script generation to publishing across platforms.",
+      impact: "Saved 15+ hours per week in content production and maintained consistent daily posting schedule.",
+    },
   },
   {
     title: "AI Funnel Builder Matchmaking",
@@ -84,6 +103,11 @@ const projects: Project[] = [
     color: "bg-gradient-to-br from-emerald-500 to-teal-500 text-white",
     glow: "shadow-emerald-500/20",
     metric: "Leads",
+    details: {
+      challenge: "Incoming leads often provided incomplete information, making it difficult to recommend the right funnel builder.",
+      approach: "Created an AI-powered qualification flow that asks smart follow-up questions and matches requirements to funnel builders.",
+      impact: "Improved lead qualification accuracy by 85% and reduced mismatched recommendations significantly.",
+    },
   },
   {
     title: "Company Policy RAG Chatbot",
@@ -99,6 +123,11 @@ const projects: Project[] = [
     color: "bg-gradient-to-br from-amber-500 to-orange-500 text-white",
     glow: "shadow-amber-500/20",
     metric: "60%",
+    details: {
+      challenge: "HR team was overwhelmed with repetitive policy questions, spending hours searching through documents.",
+      approach: "Built a RAG system using Qdrant vector database with embedded policy documents for semantic search and retrieval.",
+      impact: "Reduced HR ticket volume by 60% and provided instant, accurate answers to employee policy questions 24/7.",
+    },
   },
   {
     title: "JD Generator and Resume Screening Agents",
@@ -114,6 +143,11 @@ const projects: Project[] = [
     color: "bg-gradient-to-br from-rose-500 to-pink-500 text-white",
     glow: "shadow-rose-500/20",
     metric: "100 CVs",
+    details: {
+      challenge: "Manual resume screening was inconsistent and time-consuming, especially for high-volume positions.",
+      approach: "Developed a multi-agent LangGraph system that generates JDs and screens resumes using semantic matching.",
+      impact: "Processed batches of 50-100 resumes in minutes with 90%+ accuracy in identifying qualified candidates.",
+    },
   },
   {
     title: "MotorCut Automotive CV System",
@@ -129,6 +163,11 @@ const projects: Project[] = [
     color: "bg-gradient-to-br from-blue-500 to-indigo-500 text-white",
     glow: "shadow-blue-500/20",
     metric: "CV",
+    details: {
+      challenge: "Vehicle inspections were inconsistent due to varying lighting conditions, angles, and vehicle types.",
+      approach: "Trained ensemble of YOLOv8, Mask R-CNN, and ConvNeXt models for robust detection across diverse conditions.",
+      impact: "Achieved 95%+ detection accuracy across different lighting conditions and vehicle orientations.",
+    },
   },
   {
     title: "ML-as-a-Service Mini Project",
@@ -144,6 +183,11 @@ const projects: Project[] = [
     color: "bg-gradient-to-br from-lime-500 to-green-500 text-white",
     glow: "shadow-lime-500/20",
     metric: "API",
+    details: {
+      challenge: "ML models were difficult to test and integrate into web applications without a standardized API.",
+      approach: "Built a FastAPI service that wraps ML workflows into RESTful endpoints with documentation and error handling.",
+      impact: "Simplified model deployment and made it accessible to frontend developers through clean API interfaces.",
+    },
     links: [
       {
         label: "Code",
@@ -157,6 +201,22 @@ const projects: Project[] = [
 const Projects = () => {
   const featuredProject = projects[0];
   const compactProjects = projects.slice(1);
+  const [expandedProject, setExpandedProject] = useState<string | null>(null);
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+
+  const toggleExpand = (projectTitle: string) => {
+    setExpandedProject(expandedProject === projectTitle ? null : projectTitle);
+  };
+
+  const openModal = (project: Project) => {
+    setSelectedProject(project);
+    document.body.style.overflow = 'hidden';
+  };
+
+  const closeModal = () => {
+    setSelectedProject(null);
+    document.body.style.overflow = 'unset';
+  };
 
   return (
     <section className="relative overflow-hidden bg-[#0a0a0f] py-16 sm:py-20">
@@ -281,23 +341,33 @@ const Projects = () => {
                     ))}
                   </div>
 
-                  {featuredProject.links?.length ? (
-                    <div className="flex flex-wrap gap-3 pt-2">
-                      {featuredProject.links.map((link) => (
-                        <Button
-                          key={link.href}
-                          asChild
-                          size="sm"
-                          className="h-10 bg-gradient-to-r from-sky-500 to-cyan-500 px-4 text-sm font-semibold text-white hover:from-sky-600 hover:to-cyan-600 shadow-lg shadow-sky-500/25 transition-all duration-300 hover:shadow-sky-500/40 hover:-translate-y-0.5"
-                        >
-                          <a href={link.href} target="_blank" rel="noopener noreferrer">
-                            {link.label}
-                            <link.icon className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
-                          </a>
-                        </Button>
-                      ))}
-                    </div>
-                  ) : null}
+                  <div className="flex flex-wrap gap-3 pt-2">
+                    <button
+                      onClick={() => openModal(featuredProject)}
+                      className="text-xs font-semibold text-gray-400 hover:text-sky-400 transition-colors duration-200 flex items-center gap-1"
+                    >
+                      Read More
+                      <ChevronDown className="h-3 w-3" />
+                    </button>
+
+                    {featuredProject.links?.length ? (
+                      <>
+                        {featuredProject.links.map((link) => (
+                          <Button
+                            key={link.href}
+                            asChild
+                            size="sm"
+                            className="h-10 bg-gradient-to-r from-sky-500 to-cyan-500 px-4 text-sm font-semibold text-white hover:from-sky-600 hover:to-cyan-600 shadow-lg shadow-sky-500/25 transition-all duration-300 hover:shadow-sky-500/40 hover:-translate-y-0.5"
+                          >
+                            <a href={link.href} target="_blank" rel="noopener noreferrer">
+                              {link.label}
+                              <link.icon className="ml-1.5 h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" aria-hidden="true" />
+                            </a>
+                          </Button>
+                        ))}
+                      </>
+                    ) : null}
+                  </div>
                 </div>
               </div>
             </article>
@@ -353,23 +423,33 @@ const Projects = () => {
                         )}
                       </div>
 
-                      {project.links?.length ? (
-                        <div className="flex flex-wrap gap-3">
-                          {project.links.map((link) => (
-                            <Button
-                              key={link.href}
-                              asChild
-                              variant="link"
-                              className="h-auto p-0 text-xs font-semibold text-sky-400 hover:text-sky-300 transition-all duration-200 group/link"
-                            >
-                              <a href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1">
-                                {link.label}
-                                <link.icon className="h-3.5 w-3.5 transition-transform duration-300 group-hover/link:translate-x-0.5" aria-hidden="true" />
-                              </a>
-                            </Button>
-                          ))}
-                        </div>
-                      ) : null}
+                      <div className="flex items-center justify-between">
+                        <button
+                          onClick={() => openModal(project)}
+                          className="text-xs font-semibold text-gray-400 hover:text-sky-400 transition-colors duration-200 flex items-center gap-1"
+                        >
+                          Read More
+                          <ChevronDown className="h-3 w-3" />
+                        </button>
+
+                        {project.links?.length ? (
+                          <div className="flex gap-2">
+                            {project.links.map((link) => (
+                              <Button
+                                key={link.href}
+                                asChild
+                                variant="link"
+                                className="h-auto p-0 text-xs font-semibold text-sky-400 hover:text-sky-300 transition-all duration-200 group/link"
+                              >
+                                <a href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1">
+                                  {link.label}
+                                  <link.icon className="h-3.5 w-3.5 transition-transform duration-300 group-hover/link:translate-x-0.5" aria-hidden="true" />
+                                </a>
+                              </Button>
+                            ))}
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
                   </div>
                 </article>
@@ -378,6 +458,113 @@ const Projects = () => {
           </div>
         </div>
       </div>
+
+      {/* Project Detail Modal */}
+      {selectedProject && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
+          <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-gray-950 border border-white/10 shadow-2xl">
+            {/* Modal Header */}
+            <div className={`absolute inset-x-0 top-0 h-1 rounded-t-2xl bg-gradient-to-r ${selectedProject.accent}`} />
+
+            <div className="p-6 sm:p-8">
+              {/* Close button */}
+              <button
+                onClick={closeModal}
+                className="absolute top-4 right-4 p-2 rounded-lg bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 transition-all duration-200"
+              >
+                <X className="h-5 w-5" />
+              </button>
+
+              {/* Project Icon & Title */}
+              <div className="flex items-start gap-4 mb-6">
+                <div className={`flex h-14 w-14 flex-none items-center justify-center rounded-2xl ${selectedProject.color} shadow-lg ${selectedProject.glow}`}>
+                  <selectedProject.icon className="h-6 w-6" aria-hidden="true" />
+                </div>
+                <div>
+                  <p className="text-sm font-semibold uppercase tracking-wide text-sky-400">
+                    {selectedProject.category}
+                  </p>
+                  <h3 className="mt-1 text-2xl font-bold text-white">
+                    {selectedProject.title}
+                  </h3>
+                  <p className="text-sm text-gray-400 mt-1">{selectedProject.role}</p>
+                </div>
+              </div>
+
+              {/* Summary */}
+              <p className="text-gray-300 leading-relaxed mb-6">
+                {selectedProject.summary}
+              </p>
+
+              {/* Details Sections */}
+              {selectedProject.details && (
+                <div className="space-y-4 mb-6">
+                  {selectedProject.details.challenge && (
+                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                      <h4 className="text-sm font-semibold text-rose-400 mb-2">🎯 Challenge</h4>
+                      <p className="text-sm text-gray-400">{selectedProject.details.challenge}</p>
+                    </div>
+                  )}
+
+                  {selectedProject.details.approach && (
+                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                      <h4 className="text-sm font-semibold text-sky-400 mb-2">💡 Approach</h4>
+                      <p className="text-sm text-gray-400">{selectedProject.details.approach}</p>
+                    </div>
+                  )}
+
+                  {selectedProject.details.impact && (
+                    <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+                      <h4 className="text-sm font-semibold text-emerald-400 mb-2">📊 Impact</h4>
+                      <p className="text-sm text-gray-400">{selectedProject.details.impact}</p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {/* Technologies */}
+              <div className="mb-6">
+                <h4 className="text-sm font-semibold text-gray-300 mb-3">Technologies Used</h4>
+                <div className="flex flex-wrap gap-2">
+                  {selectedProject.technologies.map((tech) => (
+                    <span
+                      key={tech}
+                      className="rounded-lg border border-white/10 bg-white/5 px-3 py-1.5 text-xs font-medium text-gray-400"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+              </div>
+
+              {/* Result */}
+              <div className="mb-6 p-4 rounded-xl bg-gradient-to-r from-emerald-500/10 to-teal-500/10 border border-emerald-500/20">
+                <h4 className="text-sm font-semibold text-emerald-400 mb-2">✨ Result</h4>
+                <p className="text-sm text-gray-300">{selectedProject.result}</p>
+              </div>
+
+              {/* Links */}
+              {selectedProject.links?.length ? (
+                <div className="flex flex-wrap gap-3">
+                  {selectedProject.links.map((link) => (
+                    <Button
+                      key={link.href}
+                      asChild
+                      size="sm"
+                      className="h-10 bg-gradient-to-r from-sky-500 to-cyan-500 px-4 text-sm font-semibold text-white hover:from-sky-600 hover:to-cyan-600 shadow-lg shadow-sky-500/25"
+                    >
+                      <a href={link.href} target="_blank" rel="noopener noreferrer">
+                        {link.label}
+                        <link.icon className="ml-1.5 h-4 w-4" aria-hidden="true" />
+                      </a>
+                    </Button>
+                  ))}
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Custom animations */}
       <style>{`
