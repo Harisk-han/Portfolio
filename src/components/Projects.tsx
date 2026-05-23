@@ -196,6 +196,22 @@ const projects: Project[] = [
       },
     ],
   },
+  {
+    title: "Automation Workflows",
+    category: "Automation",
+    role: "Automation Engineer",
+    summary: "Automation workflows built with n8n to streamline repetitive tasks and integrate multiple services.",
+    result: "Reduced manual effort and increased efficiency across processes.",
+    technologies: ["n8n", "Zapier", "Node.js"],
+    icon: Zap,
+    accent: "from-amber-400 via-orange-400 to-amber-400",
+    color: "bg-gradient-to-br from-amber-500 to-orange-500 text-white",
+    glow: "shadow-amber-500/20",
+    metric: "Automation",
+    links: [
+      { label: "Code", href: "https://github.com/Harisk-han/Automation-Workflows-n8n-Zapier-", icon: Github },
+    ],
+  },
 ];
 
 const Projects = () => {
