@@ -206,7 +206,7 @@ const Experience = () => {
           {/* Bottom Stats */}
           <div className="mt-16 grid grid-cols-3 gap-4 animate-fade-in animation-delay-500">
             {[
-              { value: "3+", label: "Years Experience", accent: "from-sky-400 to-cyan-400" },
+              { value: "1+", label: "Years Experience", accent: "from-sky-400 to-cyan-400" },
               { value: "3", label: "Companies", accent: "from-violet-400 to-purple-400" },
               { value: "10+", label: "AI Projects", accent: "from-emerald-400 to-teal-400" },
             ].map((stat) => (
