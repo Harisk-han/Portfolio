@@ -31,6 +31,7 @@ type Project = {
   glow: string;
   metric: string;
   highlighted?: boolean;
+  videoUrl?: string;
   details?: {
     challenge?: string;
     approach?: string;
@@ -70,7 +71,7 @@ const projects: Project[] = [
     ],
   },
   {
-    title: "Automated Course Promo Workflow",
+    title: "Keke Course Social media Content Generation",
     category: "AI Video Workflow",
     role: "Workflow Automation Developer",
     summary:
@@ -83,6 +84,7 @@ const projects: Project[] = [
     color: "bg-gradient-to-br from-violet-500 to-fuchsia-500 text-white",
     glow: "shadow-violet-500/20",
     metric: "Daily",
+    videoUrl: "https://www.loom.com/embed/78a6819b22d64328819408100ca87e00?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true",
     details: {
       challenge: "Creating daily promotional content was time-consuming and required multiple tools and manual steps.",
       approach: "Designed an n8n workflow that automates the entire pipeline from script generation to publishing across platforms.",
@@ -103,6 +105,7 @@ const projects: Project[] = [
     color: "bg-gradient-to-br from-emerald-500 to-teal-500 text-white",
     glow: "shadow-emerald-500/20",
     metric: "Leads",
+    videoUrl: "https://www.loom.com/embed/9d6953bbabce47f28ffd922e64fd4cbd?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true",
     details: {
       challenge: "Incoming leads often provided incomplete information, making it difficult to recommend the right funnel builder.",
       approach: "Created an AI-powered qualification flow that asks smart follow-up questions and matches requirements to funnel builders.",
@@ -197,6 +200,27 @@ const projects: Project[] = [
     ],
   },
   {
+    title: "AI Video Generation (Newsletter Automation)",
+    category: "Video Automation",
+    role: "AI Automation Developer",
+    summary:
+      "Automated video generation pipeline that takes football analysis data, processes it, and generates customized video content for newsletters.",
+    result:
+      "Delivered personalized video highlights and text insights automatically to subscribers.",
+    technologies: ["n8n", "OpenAI", "Python", "Loom"],
+    icon: Sparkles,
+    accent: "from-indigo-400 via-purple-400 to-indigo-400",
+    color: "bg-gradient-to-br from-indigo-500 to-purple-500 text-white",
+    glow: "shadow-indigo-500/20",
+    metric: "Video AI",
+    videoUrl: "https://www.loom.com/embed/c9c6e786e59341a292136880128fa822?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true",
+    details: {
+      challenge: "Creating manual video summaries for sports newsletter updates was too slow to match rapid news cycles.",
+      approach: "Built an automated workflow that ingests match statistics, uses OpenAI to draft a script, and triggers automated video rendering to produce news summaries.",
+      impact: "Automated video production, driving a significant increase in subscriber engagement and click-through rates.",
+    },
+  },
+  {
     title: "Automation Workflows",
     category: "Automation",
     role: "Automation Engineer",
@@ -275,7 +299,7 @@ const Projects = () => {
             {/* Stats Cards */}
             <div className="grid grid-cols-3 gap-3 animate-fade-in animation-delay-200">
               {[
-                { value: "07", label: "Projects", icon: Zap },
+                { value: "09", label: "Projects", icon: Zap },
                 { value: "04", label: "Domains", icon: Star },
                 { value: "AI", label: "Core", icon: Trophy },
               ].map(({ value, label, icon: Icon }) => (
@@ -448,23 +472,38 @@ const Projects = () => {
                           <ChevronDown className="h-3 w-3" />
                         </button>
 
-                        {project.links?.length ? (
-                          <div className="flex gap-2">
-                            {project.links.map((link) => (
-                              <Button
-                                key={link.href}
-                                asChild
-                                variant="link"
-                                className="h-auto p-0 text-xs font-semibold text-sky-400 hover:text-sky-300 transition-all duration-200 group/link"
-                              >
-                                <a href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1">
-                                  {link.label}
-                                  <link.icon className="h-3.5 w-3.5 transition-transform duration-300 group-hover/link:translate-x-0.5" aria-hidden="true" />
-                                </a>
-                              </Button>
-                            ))}
-                          </div>
-                        ) : null}
+                        <div className="flex items-center gap-4">
+                          {project.videoUrl && (
+                            <button
+                              onClick={() => openModal(project)}
+                              className="text-xs font-semibold text-emerald-400 hover:text-emerald-300 transition-colors duration-200 flex items-center gap-1.5"
+                            >
+                              <span className="relative flex h-2 w-2">
+                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                              </span>
+                              Watch Demo
+                            </button>
+                          )}
+
+                          {project.links?.length ? (
+                            <div className="flex gap-2">
+                              {project.links.map((link) => (
+                                <Button
+                                  key={link.href}
+                                  asChild
+                                  variant="link"
+                                  className="h-auto p-0 text-xs font-semibold text-sky-400 hover:text-sky-300 transition-all duration-200 group/link"
+                                >
+                                  <a href={link.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1">
+                                    {link.label}
+                                    <link.icon className="h-3.5 w-3.5 transition-transform duration-300 group-hover/link:translate-x-0.5" aria-hidden="true" />
+                                  </a>
+                                </Button>
+                              ))}
+                            </div>
+                          ) : null}
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -511,6 +550,19 @@ const Projects = () => {
               <p className="text-gray-300 leading-relaxed mb-6">
                 {selectedProject.summary}
               </p>
+
+              {/* Video Embed */}
+              {selectedProject.videoUrl && (
+                <div className="relative w-full aspect-video rounded-xl overflow-hidden border border-white/10 mb-6 bg-gray-900 shadow-xl">
+                  <iframe
+                    src={selectedProject.videoUrl}
+                    frameBorder="0"
+                    allowFullScreen
+                    className="absolute top-0 left-0 w-full h-full"
+                    title={`${selectedProject.title} Demo`}
+                  />
+                </div>
+              )}
 
               {/* Details Sections */}
               {selectedProject.details && (
