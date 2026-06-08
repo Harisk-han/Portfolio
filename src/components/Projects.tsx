@@ -47,23 +47,23 @@ type Project = {
 const projects: Project[] = [
   {
     title: "AI Customer Support Chatbot",
-    category: "Chatbot Automation",
+    category: "SaaS AI Integration",
     role: "AI Automation Engineer",
     summary:
-      "Subscription-aware assistant for Pocket Pinky and AI Homebuilder with account lookup and premium access logic.",
+      "Subscription-aware support systems integrated into live SaaS products (Pocket Pinky and AI for Homebuilders) featuring user account lookup, custom database integration, and premium tier routing logic.",
     result:
-      "Personalized support replies and reduced repetitive customer support handling.",
-    technologies: ["Botpress", "OpenAI", "JavaScript", "Webchat"],
+      "Fully automated first-line customer success workflows, enabling personalized account answers and reducing support overhead.",
+    technologies: ["Botpress", "OpenAI", "JavaScript", "Webchat", "APIs & Webhooks"],
     icon: Bot,
     accent: "from-sky-400 via-cyan-400 to-sky-400",
     color: "bg-gradient-to-br from-sky-500 to-cyan-500 text-white",
     glow: "shadow-sky-500/20",
-    metric: "Support AI",
+    metric: "SaaS AI",
     highlighted: true,
     details: {
-      challenge: "Manual customer support was slow and repetitive, with no way to personalize responses based on subscription tiers.",
-      approach: "Built a Botpress chatbot integrated with OpenAI for natural language understanding, connected to subscription database for personalized responses.",
-      impact: "Reduced response time by 70% and automated 80% of common queries, allowing human agents to focus on complex issues.",
+      challenge: "Handling support tickets for SaaS platforms requires contextual understanding of the user's subscription state, necessitating integrations with back-end databases to distinguish premium members and resolve account-specific questions securely.",
+      approach: "Developed custom Botpress and OpenAI agent pipelines integrated via secure webhooks and APIs to SaaS user databases. Designed routing rules to retrieve user profiles, verify subscriptions, handle accounts logic, and escalate complex issues directly to helpdesks.",
+      impact: "Successfully deployed on two live SaaS platforms, automating over 80% of support volume, offering instant personalized assistance, and improving user retention through faster premium escalations.",
     },
     links: [
       { label: "Pocket Pinky", href: "https://www.pocketpinky.com/", icon: ArrowUpRight },
@@ -89,6 +89,36 @@ const projects: Project[] = [
       challenge: "Creating daily promotional content was time-consuming and required multiple tools and manual steps.",
       approach: "Designed an n8n workflow that automates the entire pipeline from script generation to publishing across platforms.",
       impact: "Saved 15+ hours per week in content production and maintained consistent daily posting schedule.",
+    },
+  },
+  {
+    title: "BrightSmile Dental Clinic AI Receptionist",
+    category: "Voice Automation",
+    role: "AI Automation Developer",
+    summary:
+      "Intelligent voice-based virtual assistant designed to automate patient communication, appointment booking, and emergency handling 24/7.",
+    result:
+      "Automated patient interactions, immediate support, and reduced administrative workload.",
+    technologies: [
+      "Conversational AI",
+      "Voice Agent Framework",
+      "NLP",
+      "Prompt Engineering",
+      "API Integration",
+    ],
+    icon: Bot,
+    accent: "from-cyan-400 via-teal-400 to-cyan-400",
+    color: "bg-gradient-to-br from-cyan-500 to-teal-500 text-white",
+    glow: "shadow-cyan-500/20",
+    metric: "Voice AI",
+    videoUrl: "https://www.loom.com/embed/3109b78ca85b472999ca2ea4199874c5?hide_owner=true&hide_share=true&hide_title=true&hideEmbedTopBar=true",
+    details: {
+      challenge:
+        "Dental clinics face challenges managing high volumes of patient inquiries, appointment requests, and routine questions, leading to long wait times and high administrative workloads.",
+      approach:
+        "Developed a natural voice-based virtual assistant that handles structured appointment bookings, answers service inquiries, and detects dental emergency keywords to prioritize urgent care.",
+      impact:
+        "Operates 24/7 to provide instant responses, collects precise patient info, and automates booking submission directly to clinic staff.",
     },
   },
   {
@@ -299,7 +329,7 @@ const Projects = () => {
             {/* Stats Cards */}
             <div className="grid grid-cols-3 gap-3 animate-fade-in animation-delay-200">
               {[
-                { value: "09", label: "Projects", icon: Zap },
+                { value: "10", label: "Projects", icon: Zap },
                 { value: "04", label: "Domains", icon: Star },
                 { value: "AI", label: "Core", icon: Trophy },
               ].map(({ value, label, icon: Icon }) => (
@@ -349,23 +379,37 @@ const Projects = () => {
                   {featuredProject.summary}
                 </p>
 
-                <div className="grid gap-4 sm:grid-cols-2 mb-6">
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all duration-300 hover:border-sky-500/30 hover:bg-sky-500/5">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">
-                      What I Built
-                    </p>
-                    <p className="text-sm font-medium text-gray-300">
-                      Subscription-aware support bot with premium access logic
-                    </p>
-                  </div>
-                  <div className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all duration-300 hover:border-emerald-500/30 hover:bg-emerald-500/5">
-                    <p className="text-xs font-semibold uppercase tracking-wide text-gray-500 mb-1">
-                      Result
-                    </p>
-                    <p className="text-sm font-medium text-gray-300">
-                      Faster, personalized customer support replies
-                    </p>
-                  </div>
+                <div className="space-y-4 mb-6">
+                  {featuredProject.details?.challenge && (
+                    <div className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all duration-300 hover:border-rose-500/30 hover:bg-rose-500/5">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-rose-400 mb-1 flex items-center gap-1.5">
+                        <span className="text-sm">🎯</span> Challenge
+                      </p>
+                      <p className="text-sm text-gray-300">
+                        {featuredProject.details.challenge}
+                      </p>
+                    </div>
+                  )}
+                  {featuredProject.details?.approach && (
+                    <div className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all duration-300 hover:border-sky-500/30 hover:bg-sky-500/5">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-sky-400 mb-1 flex items-center gap-1.5">
+                        <span className="text-sm">💡</span> Approach
+                      </p>
+                      <p className="text-sm text-gray-300">
+                        {featuredProject.details.approach}
+                      </p>
+                    </div>
+                  )}
+                  {featuredProject.details?.impact && (
+                    <div className="rounded-xl border border-white/10 bg-white/5 p-4 backdrop-blur-sm transition-all duration-300 hover:border-emerald-500/30 hover:bg-emerald-500/5">
+                      <p className="text-xs font-semibold uppercase tracking-wide text-emerald-400 mb-1 flex items-center gap-1.5">
+                        <span className="text-sm">📊</span> Impact & Result
+                      </p>
+                      <p className="text-sm text-gray-300">
+                        {featuredProject.details.impact}
+                      </p>
+                    </div>
+                  )}
                 </div>
 
                 <div className="mt-auto space-y-4">
