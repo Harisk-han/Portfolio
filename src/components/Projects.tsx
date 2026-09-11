@@ -1,3 +1,5 @@
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
 import { Button } from "@/components/ui/button";
 import {
   ArrowUpRight,
@@ -17,6 +19,7 @@ import {
   X,
 } from "lucide-react";
 import { useState } from "react";
+import { ProjectsGallery3D, ProjectsGalleryFallback } from "@/components/3d/ProjectsGallery3D";
 
 type Project = {
   title: string;
@@ -289,7 +292,18 @@ const Projects = () => {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#0a0a0f] py-16 sm:py-20">
+    <section className="relative overflow-hidden bg-[#0a0a0f] py-16 sm:py-20 min-h-screen">
+      {/* 3D Gallery Canvas */}
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 2, 10], fov: 50 }} gl={{ antialias: true, alpha: true }}>
+          <Suspense fallback={<ProjectsGalleryFallback />}>
+            <ProjectsGallery3D projects={projects} />
+          </Suspense>
+        </Canvas>
+      </div>
+      
+      {/* Content overlay - positioned above canvas */}
+      <div className="relative z-10">
       {/* Animated background grid */}
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
@@ -779,6 +793,7 @@ const Projects = () => {
           background: rgba(255, 255, 255, 0.2);
         }
       `}</style>
+      </div>
     </section>
   );
 };

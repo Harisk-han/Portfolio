@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Github, Linkedin, Mail, Terminal, Code2, Download } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
+import { HeroBackground3D } from "@/components/3d/HeroBackground3D";
 
 const Hero = () => {
   const scrollToProjects = () => {
@@ -21,38 +24,16 @@ const Hero = () => {
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0f]">
-      {/* Animated background grid */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-500/5 via-transparent to-violet-500/5" />
+      {/* 3D Background Canvas */}
+      <div className="absolute inset-0 z-0">
+        <Canvas camera={{ position: [0, 0, 10], fov: 50 }} gl={{ antialias: true, alpha: true }}>
+          <Suspense fallback={null}>
+            <HeroBackground3D />
+          </Suspense>
+        </Canvas>
       </div>
-
-      {/* Background Image with blend */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.15] mix-blend-luminosity"
-        style={{ backgroundImage: `url(${heroBg})` }}
-      />
-
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f]/50 via-transparent to-[#0a0a0f]/90" />
-      <div className="absolute inset-0 bg-gradient-to-r from-sky-500/10 via-transparent to-violet-500/10" />
-
-      {/* Animated orbs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[120px] animate-pulse" />
-        <div className="absolute -bottom-40 -left-20 h-[500px] w-[500px] rounded-full bg-violet-500/10 blur-[120px] animate-pulse animation-delay-1000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[300px] w-[300px] rounded-full bg-cyan-500/5 blur-[100px] animate-pulse animation-delay-2000" />
-      </div>
-
-      {/* Floating particles effect */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-1 h-1 bg-sky-400/50 rounded-full animate-pulse" />
-        <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 bg-violet-400/50 rounded-full animate-pulse animation-delay-500" />
-        <div className="absolute bottom-1/3 left-1/2 w-1 h-1 bg-cyan-400/50 rounded-full animate-pulse animation-delay-1000" />
-        <div className="absolute top-1/2 right-1/4 w-1.5 h-1.5 bg-sky-400/50 rounded-full animate-pulse animation-delay-1500" />
-      </div>
-
-      {/* Content */}
+      
+      {/* Content overlay - positioned above canvas */}
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-16">
         <div className="grid grid-cols-1 xl:grid-cols-2 gap-12 xl:gap-16 items-center">
           {/* Left Column - Text Content */}
@@ -185,7 +166,6 @@ const Hero = () => {
             </div>
           </div>
         </div>
-      </div>
 
       {/* Bottom fade gradient */}
       <div className="pointer-events-none absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
@@ -243,6 +223,7 @@ const Hero = () => {
           background: rgba(255, 255, 255, 0.2);
         }
       `}</style>
+      </div>
     </section>
   );
 };
