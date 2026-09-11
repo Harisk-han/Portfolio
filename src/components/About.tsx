@@ -63,11 +63,11 @@ const About = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-sky-500/5 via-transparent to-violet-500/5" />
       </div>
 
-      {/* Animated orbs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-sky-500/10 blur-[100px] animate-pulse" />
-        <div className="absolute top-60 -left-40 h-96 w-96 rounded-full bg-violet-500/10 blur-[100px] animate-pulse animation-delay-1000" />
-        <div className="absolute bottom-20 right-20 h-72 w-72 rounded-full bg-cyan-500/8 blur-[100px] animate-pulse animation-delay-2000" />
+      {/* Animated orbs — GPU-promoted */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
+        <div className="absolute -top-40 -right-40 h-96 w-96 rounded-full bg-sky-500/10 blur-[50px] animate-pulse" />
+        <div className="absolute top-60 -left-40 h-96 w-96 rounded-full bg-violet-500/10 blur-[50px] animate-pulse animation-delay-1000" />
+        <div className="absolute bottom-20 right-20 h-72 w-72 rounded-full bg-cyan-500/8 blur-[50px] animate-pulse animation-delay-2000" />
       </div>
 
       {/* Top border gradient */}
@@ -226,91 +226,6 @@ const About = () => {
         </div>
       </div>
 
-      {/* Custom animations */}
-      <style>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-          }
-          to {
-            opacity: 1;
-          }
-        }
-        
-        @keyframes slide-up {
-          from {
-            opacity: 0;
-            transform: translateY(30px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        @keyframes scale-in {
-          from {
-            opacity: 0;
-            transform: scale(0.9);
-          }
-          to {
-            opacity: 1;
-            transform: scale(1);
-          }
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out forwards;
-        }
-        
-        .animate-slide-up {
-          animation: slide-up 0.6s ease-out forwards;
-        }
-        
-        .animate-scale-in {
-          animation: scale-in 0.4s ease-out forwards;
-        }
-        
-        .animation-delay-100 {
-          animation-delay: 100ms;
-        }
-        
-        .animation-delay-200 {
-          animation-delay: 200ms;
-        }
-        
-        .animation-delay-500 {
-          animation-delay: 500ms;
-        }
-        
-        .animation-delay-1000 {
-          animation-delay: 1000ms;
-        }
-        
-        .animation-delay-2000 {
-          animation-delay: 2000ms;
-        }
-        
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-          width: 8px;
-          height: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.2);
-        }
-      `}</style>
     </section>
   );
 };

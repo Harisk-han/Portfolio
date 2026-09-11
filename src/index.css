@@ -124,11 +124,36 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     @apply bg-background text-foreground;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    /* Prevent layout thrash during scroll */
+    overflow-x: hidden;
+  }
+
+  /* GPU-promote animated orbs so they don't cause layout repaints */
+  .perf-orb {
+    will-change: opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+  }
+
+  /* Offscreen sections skip layout/paint until visible */
+  section {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 600px;
+  }
+
+  /* Reduce backdrop-blur cost on cards */
+  .perf-card {
+    will-change: transform;
+    transform: translateZ(0);
   }
 }
 
@@ -202,3 +227,17 @@ All colors MUST be HSL.
     transform: scale(1);
   }
 }
+
+/* ─── Animation delay utilities ─────────────────────────────────── */
+.animation-delay-100  { animation-delay: 100ms; }
+.animation-delay-200  { animation-delay: 200ms; }
+.animation-delay-500  { animation-delay: 500ms; }
+.animation-delay-1000 { animation-delay: 1000ms; }
+.animation-delay-1500 { animation-delay: 1500ms; }
+.animation-delay-2000 { animation-delay: 2000ms; }
+
+/* ─── Custom scrollbar ─────────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: rgba(255,255,255,0.05); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }

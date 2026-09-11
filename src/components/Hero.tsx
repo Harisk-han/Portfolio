@@ -27,9 +27,9 @@ const Hero = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-sky-500/5 via-transparent to-violet-500/5" />
       </div>
 
-      {/* Background Image with blend */}
+      {/* Background Image - no costly mix-blend */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.15] mix-blend-luminosity"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-[0.12]"
         style={{ backgroundImage: `url(${heroBg})` }}
       />
 
@@ -37,11 +37,11 @@ const Hero = () => {
       <div className="absolute inset-0 bg-gradient-to-b from-[#0a0a0f]/50 via-transparent to-[#0a0a0f]/90" />
       <div className="absolute inset-0 bg-gradient-to-r from-sky-500/10 via-transparent to-violet-500/10" />
 
-      {/* Animated orbs */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[120px] animate-pulse" />
-        <div className="absolute -bottom-40 -left-20 h-[500px] w-[500px] rounded-full bg-violet-500/10 blur-[120px] animate-pulse animation-delay-1000" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[300px] w-[300px] rounded-full bg-cyan-500/5 blur-[100px] animate-pulse animation-delay-2000" />
+      {/* Animated orbs — GPU-promoted to avoid layout repaints during scroll */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden" style={{ willChange: 'transform', transform: 'translateZ(0)' }}>
+        <div className="absolute -top-40 -right-20 h-[500px] w-[500px] rounded-full bg-sky-500/10 blur-[60px] animate-pulse" />
+        <div className="absolute -bottom-40 -left-20 h-[500px] w-[500px] rounded-full bg-violet-500/10 blur-[60px] animate-pulse animation-delay-1000" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[300px] w-[300px] rounded-full bg-cyan-500/5 blur-[50px] animate-pulse animation-delay-2000" />
       </div>
 
       {/* Floating particles effect */}
@@ -190,59 +190,6 @@ const Hero = () => {
       {/* Bottom fade gradient */}
       <div className="pointer-events-none absolute bottom-0 inset-x-0 h-32 bg-gradient-to-t from-[#0a0a0f] to-transparent" />
 
-      {/* Custom animations */}
-      <style>{`
-        @keyframes fade-in {
-          from {
-            opacity: 0;
-            transform: translateY(10px);
-          }
-          to {
-            opacity: 1;
-            transform: translateY(0);
-          }
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animation-delay-500 {
-          animation-delay: 500ms;
-        }
-        
-        .animation-delay-1000 {
-          animation-delay: 1000ms;
-        }
-        
-        .animation-delay-1500 {
-          animation-delay: 1500ms;
-        }
-        
-        .animation-delay-2000 {
-          animation-delay: 2000ms;
-        }
-        
-        ::-webkit-scrollbar {
-          width: 8px;
-          height: 8px;
-        }
-        
-        ::-webkit-scrollbar-track {
-          background: rgba(255, 255, 255, 0.05);
-          border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 4px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-          background: rgba(255, 255, 255, 0.2);
-        }
-      `}</style>
     </section>
   );
 };

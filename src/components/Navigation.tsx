@@ -26,29 +26,38 @@ const Navigation = () => {
   const [activeSection, setActiveSection] = useState("hero");
 
   useEffect(() => {
+    let rafId: number | null = null;
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (rafId !== null) return; // already scheduled
+      rafId = requestAnimationFrame(() => {
+        rafId = null;
+        setIsScrolled(window.scrollY > 50);
 
-      const sections = ["hero", "projects", "about", "experience", "contact"];
-      const scrollPosition = window.scrollY + 100;
+        const sections = ["hero", "projects", "about", "experience", "contact"];
+        const scrollPosition = window.scrollY + 100;
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetBottom = offsetTop + element.offsetHeight;
+        for (const section of sections) {
+          const element = document.getElementById(section);
+          if (element) {
+            const offsetTop = element.offsetTop;
+            const offsetBottom = offsetTop + element.offsetHeight;
 
-          if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
-            setActiveSection(section);
-            break;
+            if (scrollPosition >= offsetTop && scrollPosition < offsetBottom) {
+              setActiveSection(section);
+              break;
+            }
           }
         }
-      }
+      });
     };
 
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (rafId !== null) cancelAnimationFrame(rafId);
+    };
   }, []);
 
   const scrollToSection = (sectionId: string) => {
